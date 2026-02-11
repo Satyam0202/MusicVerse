@@ -9,19 +9,6 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Status Bar -->
-        <div class="status-bar">
-            <span class="status-time" id="statusTime">12:30</span>
-            <div class="status-icons">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M1 6h2v8H1V6zm4-4h2v12H5V2zm4 8h2v4H9v-4zm4-6h2v10h-2V4z"/>
-                </svg>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                    <path d="M2 3h12v2H2V3zm0 4h12v2H2V7zm0 4h12v2H2v-2z"/>
-                </svg>
-            </div>
-        </div>
-
         <!-- App Bar -->
         <header class="app-bar">
             <h1 class="app-title" id="appTitle">MusicVerse</h1>
@@ -125,7 +112,7 @@
                 <div class="scroll-section">
                     <div class="scroll-section-header">
                         <h3 class="scroll-section-title">For You</h3>
-                        <button class="see-all">View All</button>
+                        <button class="see-all" id="viewAllRecommended">View All</button>
                     </div>
                     <div class="horizontal-scroll" id="recommendedScroll">
                         <!-- Will be populated dynamically -->
@@ -136,7 +123,7 @@
                 <div class="scroll-section">
                     <div class="scroll-section-header">
                         <h3 class="scroll-section-title">Recent Plays</h3>
-                        <button class="see-all">View All</button>
+                        <button class="see-all" id="viewAllRecent">View All</button>
                     </div>
                     <div class="horizontal-scroll" id="recentlyPlayedScroll">
                         <!-- Will be populated dynamically -->
@@ -144,7 +131,7 @@
                 </div>
 
                 <!-- All Songs List -->
-                <div style="padding: 0 16px;">
+                <div style="padding: 0 16px;" id="allSongsSection">
                     <h3 class="scroll-section-title" style="margin-bottom: 12px;">All Songs</h3>
                     <div class="music-list" id="musicList">
                         <!-- Songs will be dynamically added here -->
@@ -163,6 +150,21 @@
                 </div>
                 <div class="music-list" id="favoritesList" style="padding: 16px;">
                     <!-- Favorite songs will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- View All Tab -->
+            <div class="tab-content" id="viewAllTab">
+                <div class="view-all-header">
+                    <button class="icon-btn" id="backFromViewAll">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <h2 class="view-all-title" id="viewAllTitle">All Songs</h2>
+                </div>
+                <div class="music-list" id="viewAllList" style="padding: 16px;">
+                    <!-- View all songs will be dynamically added here -->
                 </div>
             </div>
         </main>

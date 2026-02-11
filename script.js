@@ -6,7 +6,7 @@ const musicData = [
         title: "Midnight Dreams",
         artist: "Luna Wave",
         duration: "3:45",
-        url: "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/music/song1.mp3",
+        url: "o Mere.mp4",
         cover: "https://via.placeholder.com/300x300/1db954/ffffff?text=MD"
     },
     {
@@ -595,3 +595,4 @@ function setupEventListeners() {
 
 // Initialize app
 init();
+

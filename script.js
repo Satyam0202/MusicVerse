@@ -109,14 +109,15 @@ const progressHandle = document.getElementById('progressHandle');
 const navItems = document.querySelectorAll('.nav-item');
 const homeTab = document.getElementById('homeTab');
 const favoritesTab = document.getElementById('favoritesTab');
+const viewAllTab = document.getElementById('viewAllTab');
+const viewAllList = document.getElementById('viewAllList');
+const viewAllTitle = document.getElementById('viewAllTitle');
+const backFromViewAll = document.getElementById('backFromViewAll');
 const appTitle = document.getElementById('appTitle');
-const statusTime = document.getElementById('statusTime');
 
 // Initialize
 function init() {
     loadTheme();
-    updateStatusTime();
-    setInterval(updateStatusTime, 60000);
     updateCounts();
     renderRecommended();
     renderRecentlyPlayed();
@@ -144,14 +145,6 @@ function toggleTheme() {
     setTimeout(() => {
         themeToggle.style.transform = 'rotate(0deg)';
     }, 300);
-}
-
-// Update status bar time
-function updateStatusTime() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    statusTime.textContent = `${hours}:${minutes}`;
 }
 
 // Update counts
@@ -468,14 +461,50 @@ function switchTab(tab) {
         }
     });
     
+    // Hide all tabs
+    homeTab.classList.remove('active');
+    favoritesTab.classList.remove('active');
+    viewAllTab.classList.remove('active');
+    
     if (tab === 'home') {
         homeTab.classList.add('active');
-        favoritesTab.classList.remove('active');
-        appTitle.textContent = 'All Songs';
-    } else {
-        homeTab.classList.remove('active');
+        appTitle.textContent = 'MusicVerse';
+    } else if (tab === 'favorites') {
         favoritesTab.classList.add('active');
         appTitle.textContent = 'Favorites';
+    } else if (tab === 'viewAll') {
+        viewAllTab.classList.add('active');
+        // Title will be set by showViewAll function
+    }
+}
+
+// Show View All section
+function showViewAll(type) {
+    let songs = [];
+    let title = '';
+    
+    if (type === 'recommended') {
+        songs = allSongs;
+        title = 'For You';
+    } else if (type === 'recent') {
+        songs = allSongs;
+        title = 'Recent Plays';
+    }
+    
+    viewAllTitle.textContent = title;
+    viewAllList.innerHTML = '';
+    
+    songs.forEach((song, index) => {
+        const songItem = createSongItem(song, index);
+        viewAllList.appendChild(songItem);
+    });
+    
+    switchTab('viewAll');
+    
+    // Scroll to top
+    const mainContent = document.getElementById('mainContent');
+    if (mainContent) {
+        mainContent.scrollTop = 0;
     }
 }
 
@@ -483,6 +512,29 @@ function switchTab(tab) {
 function setupEventListeners() {
     // Theme toggle
     themeToggle.addEventListener('click', toggleTheme);
+    
+    // View All buttons
+    const viewAllRecommended = document.getElementById('viewAllRecommended');
+    const viewAllRecent = document.getElementById('viewAllRecent');
+    
+    if (viewAllRecommended) {
+        viewAllRecommended.addEventListener('click', () => {
+            showViewAll('recommended');
+        });
+    }
+    
+    if (viewAllRecent) {
+        viewAllRecent.addEventListener('click', () => {
+            showViewAll('recent');
+        });
+    }
+    
+    // Back from View All
+    if (backFromViewAll) {
+        backFromViewAll.addEventListener('click', () => {
+            switchTab('home');
+        });
+    }
     
     // Search
     searchToggle.addEventListener('click', () => {

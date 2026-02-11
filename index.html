@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0e27">
+    <title>MusicVerse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-time" id="statusTime">12:30</span>
+            <div class="status-icons">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M1 6h2v8H1V6zm4-4h2v12H5V2zm4 8h2v4H9v-4zm4-6h2v10h-2V4z"/>
+                </svg>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M2 3h12v2H2V3zm0 4h12v2H2V7zm0 4h12v2H2v-2z"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- App Bar -->
+        <header class="app-bar">
+            <h1 class="app-title" id="appTitle">MusicVerse</h1>
+            <div class="app-bar-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <svg class="sun-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button class="icon-btn" id="searchToggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Bar (Hidden by default) -->
+        <div class="search-bar" id="searchBar">
+            <button class="icon-btn" id="searchBack">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <input type="text" id="searchInput" placeholder="Search songs, artists..." class="search-input">
+            <button class="icon-btn" id="clearSearch">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 5L5 15M5 5l10 10"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Home Tab -->
+            <div class="tab-content active" id="homeTab">
+                <!-- Categories -->
+                <div class="categories-section">
+                    <h2 class="section-title">Your Music</h2>
+                    <div class="categories-grid">
+                        <div class="category-card" data-category="liked">
+                            <div class="category-icon">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                                </svg>
+                            </div>
+                            <div class="category-info">
+                                <div class="category-name">Favorites</div>
+                                <div class="category-count" id="likedCount">0 songs</div>
+                            </div>
+                        </div>
+                        <div class="category-card" data-category="top">
+                            <div class="category-icon" style="background: var(--gradient-2);">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                                </svg>
+                            </div>
+                            <div class="category-info">
+                                <div class="category-name">Trending</div>
+                                <div class="category-count">Hot tracks</div>
+                            </div>
+                        </div>
+                        <div class="category-card" data-category="recent">
+                            <div class="category-icon" style="background: var(--gradient-3);">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                                </svg>
+                            </div>
+                            <div class="category-info">
+                                <div class="category-name">History</div>
+                                <div class="category-count">Recent plays</div>
+                            </div>
+                        </div>
+                        <div class="category-card" data-category="all">
+                            <div class="category-icon" style="background: var(--gradient-4);">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                                </svg>
+                            </div>
+                            <div class="category-info">
+                                <div class="category-name">Library</div>
+                                <div class="category-count" id="allCount">0 songs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommended Radio -->
+                <div class="scroll-section">
+                    <div class="scroll-section-header">
+                        <h3 class="scroll-section-title">For You</h3>
+                        <button class="see-all">View All</button>
+                    </div>
+                    <div class="horizontal-scroll" id="recommendedScroll">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Recently Played -->
+                <div class="scroll-section">
+                    <div class="scroll-section-header">
+                        <h3 class="scroll-section-title">Recent Plays</h3>
+                        <button class="see-all">View All</button>
+                    </div>
+                    <div class="horizontal-scroll" id="recentlyPlayedScroll">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- All Songs List -->
+                <div style="padding: 0 16px;">
+                    <h3 class="scroll-section-title" style="margin-bottom: 12px;">All Songs</h3>
+                    <div class="music-list" id="musicList">
+                        <!-- Songs will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorites Tab -->
+            <div class="tab-content" id="favoritesTab">
+                <div class="empty-state" id="emptyFavorites">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <path d="M40 70L15 45C5 35 5 20 15 10C25 0 40 5 40 5C40 5 55 0 65 10C75 20 75 35 65 45L40 70Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>No Favorites Yet</h3>
+                    <p>Add songs to your favorites to see them here</p>
+                </div>
+                <div class="music-list" id="favoritesList" style="padding: 16px;">
+                    <!-- Favorite songs will be dynamically added here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Mini Player -->
+        <div class="mini-player" id="miniPlayer">
+            <div class="mini-player-content" id="miniPlayerContent">
+                <div class="mini-album-art" id="miniAlbumArt">♪</div>
+                <div class="mini-track-info">
+                    <div class="mini-track-name" id="miniTrackName">Select a song</div>
+                    <div class="mini-artist-name" id="miniArtistName">Unknown Artist</div>
+                </div>
+                <button class="icon-btn" id="miniPlayBtn">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="currentColor" id="miniPlayIcon">
+                        <path d="M8 6L22 14L8 22V6Z"/>
+                    </svg>
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="currentColor" id="miniPauseIcon" style="display:none;">
+                        <rect x="8" y="6" width="4" height="16"/>
+                        <rect x="16" y="6" width="4" height="16"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="mini-progress" id="miniProgress"></div>
+        </div>
+
+        <!-- Full Player -->
+        <div class="full-player" id="fullPlayer">
+            <div class="full-player-header">
+                <button class="icon-btn" id="closePlayer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <span class="full-player-title">Now Playing</span>
+                <button class="icon-btn" id="moreOptions">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="5" r="2"/>
+                        <circle cx="12" cy="12" r="2"/>
+                        <circle cx="12" cy="19" r="2"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="full-album-art" id="fullAlbumArt">
+                <div class="album-art-inner">♪</div>
+            </div>
+
+            <div class="full-track-info">
+                <h2 class="full-track-name" id="fullTrackName">Select a song</h2>
+                <p class="full-artist-name" id="fullArtistName">Unknown Artist</p>
+            </div>
+
+            <div class="full-controls">
+                <div class="progress-section">
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                        <div class="progress-handle" id="progressHandle"></div>
+                    </div>
+                    <div class="time-labels">
+                        <span class="time" id="currentTime">0:00</span>
+                        <span class="time" id="duration">0:00</span>
+                    </div>
+                </div>
+
+                <div class="control-buttons">
+                    <button class="icon-btn" id="shuffleBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn" id="prevBtn">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M24 26L12 16L24 6V26Z"/>
+                            <rect x="8" y="6" width="2" height="20"/>
+                        </svg>
+                    </button>
+                    <button class="play-btn" id="playBtn">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" id="playIcon">
+                            <path d="M10 6L26 16L10 26V6Z"/>
+                        </svg>
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" id="pauseIcon" style="display:none;">
+                            <rect x="10" y="6" width="4" height="20"/>
+                            <rect x="18" y="6" width="4" height="20"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn" id="nextBtn">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M8 6L20 16L8 26V6Z"/>
+                            <rect x="22" y="6" width="2" height="20"/>
+                        </svg>
+                    </button>
+                    <button class="icon-btn" id="repeatBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 1l4 4-4 4"/>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                            <path d="M7 23l-4-4 4-4"/>
+                            <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-tab="home">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" data-tab="favorites">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <span>Favorites</span>
+            </button>
+        </nav>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
